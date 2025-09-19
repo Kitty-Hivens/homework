@@ -11,15 +11,15 @@ public class ArraySum {
     }
 
     public static void main(String[] args) {
-        int[] largeArray = new int[100_000_000]; // Великий масив для тестування
+        int[] largeArray = new int[100_000_000]; // Большой массив для тестирования
         for (int i = 0; i < largeArray.length; i++) {
-            largeArray[i] = i % 100; // Заповнюємо якимись значеннями
+            largeArray[i] = i % 100; // Заполняем какими-либо значениями
         }
 
         long startTime = System.nanoTime();
         long sum = singleThreadSum(largeArray);
         long endTime = System.nanoTime();
-        System.out.println("Однопоточна сума: " + sum);
-        System.out.println("Час однопоточного підрахунку: " + (endTime - startTime) / 1_000_000.0 + " мс");
+        System.out.println("Однопоточная сумма: " + sum);
+        System.out.println("Время однопоточного подсчёта: " + (endTime - startTime) / 1_000_000.0 + " мс");
     }
 }

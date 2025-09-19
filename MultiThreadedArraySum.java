@@ -45,7 +45,7 @@ public class MultiThreadedArraySum {
     }
 
     public static void main(String[] args) throws Exception {
-        int[] largeArray = new int[100_000_000]; // Великий масив
+        int[] largeArray = new int[100_000_000]; // Большой массив
         for (int i = 0; i < largeArray.length; i++) {
             largeArray[i] = i % 100;
         }
@@ -61,7 +61,7 @@ public class MultiThreadedArraySum {
 
         System.out.println("\n--- Сравнение ---");
         long startTimeSingle = System.nanoTime();
-        long sumSingle = ArraySum.singleThreadSum(largeArray); // Використовуємо метод з попереднього класу
+        long sumSingle = ArraySum.singleThreadSum(largeArray); // Используем метод из предыдущего класса
         long endTimeSingle = System.nanoTime();
         System.out.println("Однопоточная сума (для сравнения): " + sumSingle);
         System.out.println("Время однопоточного подсчёта (для сравнения): " + (endTimeSingle - startTimeSingle) / 1_000_000.0 + " мс");
