@@ -21,15 +21,15 @@ public class MultiThreadedFileSearch {
     }
 
     public static void main(String[] args) {
-        String fileName = "Angel Beats! OP2.flv"; // Имя файла для поиска
-        String rootDirectory = "/home/goldyl/Games/osu/drive_c/osu/Songs/16722 LISA - My Soul, Your Beats! ~Rock Version~ (TV Size)"; // Начальная директория для поиска
+        String fileName = "test.txt"; // Имя файла для поиска
+        String rootDirectory = "/home/"; // Начальная директория для поиска
 
         if (!Files.isDirectory(Paths.get(rootDirectory))) {
-            System.err.println("Указанный путь не является директорией.");
+            System.err.println("The specified path is not a directory.");
             return;
         }
 
-        System.out.println("Начало поиска файла '" + fileName + "' в '" + rootDirectory + "'...");
+        System.out.println("Start searching for a file '" + fileName + "' in '" + rootDirectory + "'...");
         new MultiThreadedFileSearch().findFile(fileName, rootDirectory);
     }
 
@@ -48,7 +48,7 @@ public class MultiThreadedFileSearch {
             Thread.currentThread().interrupt();
         } finally {
             executor.shutdown();
-            System.out.println("Поиск завершен.");
+            System.out.println("Search completed.");
         }
     }
 
