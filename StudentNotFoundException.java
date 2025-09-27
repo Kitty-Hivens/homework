@@ -1,4 +1,4 @@
-package oop.exception;
+package oop.generics;
 
 public class StudentNotFoundException extends Exception {
     public StudentNotFoundException(String message) {

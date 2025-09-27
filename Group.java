@@ -1,11 +1,13 @@
-package oop.exception;
+package oop.generics;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
 
 public class Group {
     private String groupName;
-    private Student[] students =  new Student[10];
+    private List<Student> students = new ArrayList<>();
 
     public Group(String groupName) {
         setGroupName(groupName);
@@ -19,8 +21,8 @@ public class Group {
         return groupName;
     }
 
-    public Student[] getStudents() {
-        return students;
+    public List<Student> getStudents() {
+        return new ArrayList<>(students); // Возвращает копию
     }
 
     public void setGroupName(String groupName) {
@@ -31,25 +33,20 @@ public class Group {
         }
     }
 
-    public void setStudents(Student[] students) throws GroupOverflowException {
-        if (students.length > 10) {
-            throw new GroupOverflowException();
-        } else {
-            this.students = students;
-        }
+    public void setStudents(List<Student> students) {
+        this.students = new ArrayList<>(students);
     }
 
-    public void addStudent(Student student) throws GroupOverflowException {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] == null) {
-                students[i] = student;
-                return;
-            }
+    public void addStudent(Student student) {
+        if (student != null) {
+            this.students.add(student);
         }
-        throw new GroupOverflowException();
     }
 
     public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
+        if (lastName == null) {
+            throw new StudentNotFoundException();
+        }
         for (Student student : students) {
             if (student != null && student.getLastName().equals(lastName)) {
                 return student;
@@ -59,10 +56,34 @@ public class Group {
     }
 
     public boolean removeStudentByID (int studentID) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null && students[i].getId() == studentID) {
-                students[i] = null;
-                return true;
+        return students.removeIf(student -> student != null && student.getId() == studentID);
+    }
+
+    /**
+     * Проверяет наличие эквивалентных студентов (дубликатов) в группе.
+     * Эквивалентность определяется на основе метода equals() класса Student.
+     * @return true, если в группе есть хотя бы два эквивалентных студента (дубликата), false в противном случае.
+     */
+    public boolean hasEquivalentStudents() {
+        // Упрощенная реализация с использованием List
+        for (int i = 0; i < students.size(); i++) {
+            Student studentA = students.get(i);
+
+            // Проверка на null
+            if (studentA == null) {
+                continue;
+            }
+
+            for (int j = i + 1; j < students.size(); j++) {
+                Student studentB = students.get(j);
+
+                if (studentB == null) {
+                    continue;
+                }
+
+                if (studentA.equals(studentB)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -70,21 +91,22 @@ public class Group {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (!(o instanceof Group group)) return false;
 
-        return getGroupName().equals(group.getGroupName()) && Arrays.equals(getStudents(), group.getStudents());
+        return getGroupName().equals(group.getGroupName()) && students.equals(group.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(students), groupName);
+        return Objects.hash(groupName, students);
     }
 
     @Override
     public String toString() {
         return "Group{" +
                 "groupName='" + groupName + '\'' +
-                ", students=" + Arrays.toString(students) +
+                ", students=" + students +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package oop.exception;
+package oop.generics;
 
 public enum Gender {
     WOMAN,
