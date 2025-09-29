@@ -1,4 +1,4 @@
-package oop.exception;
+package oop.object;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -63,6 +63,34 @@ public class Group {
             if (students[i] != null && students[i].getId() == studentID) {
                 students[i] = null;
                 return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Проверяет наличие эквивалентных студентов (дубликатов) в группе.
+     * Эквивалентность определяется на основе метода equals() класса Student.
+     * @return true, если в группе есть хотя бы два эквивалентных студента (дубликата), false в противном случае.
+     */
+    public boolean hasEquivalentStudents() {
+        for (int i = 0; i < students.length; i++) {
+            Student studentA = students[i];
+
+            if (studentA == null) {
+                continue;
+            }
+
+            for (int j = i + 1; j < students.length; j++) {
+                Student studentB = students[j];
+
+                if (studentB == null) {
+                    continue;
+                }
+
+                if (studentA.equals(studentB)) {
+                    return true;
+                }
             }
         }
         return false;

@@ -1,4 +1,4 @@
-package oop.exception;
+package oop.object;
 
 public class GroupOverflowException extends Exception {
     public GroupOverflowException(String message) {

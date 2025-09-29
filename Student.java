@@ -1,4 +1,4 @@
-package oop.exception;
+package oop.object;
 
 import java.util.Objects;
 
